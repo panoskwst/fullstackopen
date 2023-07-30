@@ -1,0 +1,21 @@
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Server
+
+    User->>Browser: Write a new note in the text field
+    User->>Browser: Clicks the "Add Note" button
+
+    Browser->>Server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    activate Server
+    Server-->>Browser: status code 201 created
+    deactivate Server
+
+    Note right of Server: The Content-Type header tells the server that the included data is in JSON format in order to correctly parse the data
+     
+     alt Rendering Updated Notes
+        Browser->>Browser: Process updated JSON data
+        Browser->>Browser: Generate HTML elements for displaying updated notes
+        Browser->Server: sends the new note
+        Browser-->>User: Show the updated notes on the page
+    end
