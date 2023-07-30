@@ -1,0 +1,28 @@
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Server
+
+    User->>Browser: Go to https://studies.cs.helsinki.fi/exampleapp/spa
+    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate Server
+    Server-->>Browser: HTML document
+    deactivate Server
+
+    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate Server
+    Server-->>Browser: the css file
+    deactivate Server
+
+    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate Server
+    Server-->>Browser: the JavaScript file
+    deactivate Server
+
+    Note right of Browser: The browser executes JavaScript code to fetch notes as JSON and the server sends notes as JSON 
+
+     alt Rendering Notes
+        Browser->>Browser: Process JSON data
+        Browser->>Browser: Generate HTML elements for displaying notes
+        Browser-->>User: Show the notes on the page
+    end   
